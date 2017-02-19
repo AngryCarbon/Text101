@@ -62,6 +62,12 @@ public class TextController : MonoBehaviour {
 		case States.corridor_1:
 			corridor_1 ();
 			break;
+		case States.stairs_1:
+			stairs_1 ();
+			break;
+		case States.in_closet:
+			//in_closet ();
+			break;
 		}
 	}
 
@@ -232,7 +238,7 @@ public class TextController : MonoBehaviour {
 	
 	void corridor_1 () {
 		text.text = "The corridor feels much cleaner now that you've picked up the blasphemous hairpin. " +
-					"The floor and walls reflect light and love directly into your soul. The disco ball spins to the rythmn of your heart beats. " +
+					"The floor and walls reflect light and love directly into your soul. The disco ball spins to the rythmn of your heart beat. " +
 					"It feels like the multi-colour laser lights are piercing the fog of your mind and raising you to a higher plane of existence and " +
 					"ever closer to complete enlightenment. The stairs to freedom continue to beckon you. Your soul tells you that the closet labelled " +
 					"\"Clothes To Boogie In\" may hold the key to life and the universe itself." +
@@ -242,6 +248,17 @@ public class TextController : MonoBehaviour {
 			currentState = States.stairs_1;
 		} else if (Input.GetKeyDown (KeyCode.P)) {
 			currentState = States.in_closet;
+		}
+	}
+
+	void stairs_1 () {
+		text.text = "You look up the stairwell. The guard is still there but now he's polishing is guns. Well, more like cannons. 50mm cannons. " +
+					"You've come to the conclusion that the sign above the entrance to the stairwell is either a joke or placed over the wrong stairwell. " +
+					"Damn government workers...." +
+					"\n\n" +
+					"Press [R] to return to the corridor";
+		if (Input.GetKeyDown (KeyCode.R)) {
+			currentState = States.corridor_0;
 		}
 	}
 	
