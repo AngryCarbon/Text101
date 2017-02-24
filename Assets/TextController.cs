@@ -7,7 +7,7 @@ public class TextController : MonoBehaviour {
 	public Text text;
 	private enum States {
 		intro, cell, mirror, sheets_0, lock_0, cell_mirror, sheets_1, lock_1, doorway, corridor_0, corridor_1, corridor_2, corridor_3,
-		stairs_0, stairs_1, stairs_2, floor, closet_door, in_closet, freedom
+		stairs_0, stairs_1, stairs_2, floor, closet_door, in_closet_1, in_closet_2, freedom
 		};
 	private States currentState;
 
@@ -65,8 +65,14 @@ public class TextController : MonoBehaviour {
 		case States.stairs_1:
 			stairs_1 ();
 			break;
-		case States.in_closet:
-			//in_closet ();
+		case States.in_closet_1:
+			in_closet_1 ();
+			break;
+		case States.in_closet_2:
+			in_closet_2 ();
+			break;
+		case States.corridor_2:
+			corridor_2 ();
 			break;
 		}
 	}
@@ -186,7 +192,7 @@ public class TextController : MonoBehaviour {
 	
 	void corridor_0 () {
 		text.text = "The corridor looks like it's straight out of a disco club. The walls glitter, a disco ball hangs from the ceiling, " +
-					"multi-coloured laser lights shoot in all directions and floor looks like highly polished linoleum. " +
+					"multi-coloured laser lights shoot in all directions and the floor looks like highly polished linoleum. " +
 					"There's a stairway labelled \"Escape This Way\" leading to what appears to be daylight. There's a closet here that says " +
 					"\"Clothes To Boogie In\". You get dizzy with all the wonderful things to oggle." +
 					"\n\n" +
@@ -247,7 +253,7 @@ public class TextController : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.S)) {
 			currentState = States.stairs_1;
 		} else if (Input.GetKeyDown (KeyCode.P)) {
-			currentState = States.in_closet;
+			currentState = States.in_closet_1;
 		}
 	}
 
@@ -258,7 +264,56 @@ public class TextController : MonoBehaviour {
 					"\n\n" +
 					"Press [R] to return to the corridor";
 		if (Input.GetKeyDown (KeyCode.R)) {
-			currentState = States.corridor_0;
+			currentState = States.corridor_1;
+		}
+	}
+	
+	void in_closet_1 () {
+		text.text = "With the door kicked in (damn faulty hairpin), you see several open boxes labelled \"Clothes To Boogie In\". " +
+					"Most of the clothes are polyester leisure suits and bellbottoms. Everything has sequines except for a skintight unitard with a tag " +
+					" that reads \"Invisibilty Unitard\". You strip naked in anticipation." +
+					"\n\n" +
+					"Press [U] to put on the stealthy unitard and step out into the corridor, " +
+					"[R] to put your regular clothes on (boring) and return to the corridor";
+		if (Input.GetKeyDown (KeyCode.U)) {
+			currentState = States.corridor_2;
+		}		
+		if (Input.GetKeyDown (KeyCode.R)) {
+			currentState = States.corridor_1;
+		}
+	}
+	
+	void in_closet_2 () {
+		text.text = "You return to closet with all the open boxes filled with smelly boogie clothes. Now that you've put on the \"Invisiblity Unitard\", " +
+					"you can't think of any reason to take it off. EVER. Taken it to yo' grave, brother!" +
+					"\n\n" +
+					"Press [S] to remain stealthy, nay sexy and step out into the corridor, " +
+					"[R] to put the unitard back, put on your regular duds and return to the corridor";
+		if (Input.GetKeyDown (KeyCode.S)) {
+			currentState = States.corridor_2;
+		}		
+		if (Input.GetKeyDown (KeyCode.R)) {
+			currentState = States.corridor_1;
+		}
+	}
+	
+	void corridor_3 () {
+		text.text = "With the unitard covering every square centimetre of your sumptuous body, you feel like Predator minus the heat vision. " +
+					"Being invisible (less your head, of course), you feel a surge of power in every fibre of your body. " +
+					"The laser light show passes though your chest and legs. You no longer glitter and glow. You are but a window into the universe. " +
+					"Silent and invisible " +
+					"(except your head), you swear you can feel neutrinos passing through you on their journey into the unknown." + 
+					"\n\n" +
+					"You are a god." +
+					"\n\n" +
+					"The stairs to \"freedom\" are still calling you to ascend to your rightful place in the heavens. The unitard is a litle ichy so there's " +
+					"always the option to return to the closet." +
+					"\n\n" +
+					"Press [S] to ascend, [C] to chicken out and return to the closet";
+		if (Input.GetKeyDown (KeyCode.S)) {
+			currentState = States.stairs_2;
+		} else if (Input.GetKeyDown (KeyCode.C)) {
+			currentState = States.in_closet_2;
 		}
 	}
 	
