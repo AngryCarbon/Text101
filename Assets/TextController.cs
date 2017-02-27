@@ -7,7 +7,7 @@ public class TextController : MonoBehaviour {
 	public Text text;
 	private enum States {
 		intro, cell, mirror, sheets_0, lock_0, cell_mirror, sheets_1, lock_1, doorway, corridor_0, corridor_1, corridor_2, corridor_3,
-		stairs_0, stairs_1, stairs_2, floor, closet_door, in_closet_1, in_closet_2, freedom
+		stairs_0, stairs_1, stairs_2, floor, closet_door, in_closet_0, in_closet_1, freedom
 		};
 	private States currentState;
 
@@ -65,14 +65,23 @@ public class TextController : MonoBehaviour {
 		case States.stairs_1:
 			stairs_1 ();
 			break;
+		case States.stairs_2:
+			stairs_2 ();
+			break;
+		case States.in_closet_0:
+			in_closet_0 ();
+			break;
 		case States.in_closet_1:
 			in_closet_1 ();
 			break;
-		case States.in_closet_2:
-			in_closet_2 ();
-			break;
 		case States.corridor_2:
 			corridor_2 ();
+			break;
+		case States.corridor_3:
+			corridor_3 ();
+			break;
+		case States.freedom:
+			freedom ();
 			break;
 		}
 	}
@@ -253,12 +262,12 @@ public class TextController : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.S)) {
 			currentState = States.stairs_1;
 		} else if (Input.GetKeyDown (KeyCode.P)) {
-			currentState = States.in_closet_1;
+			currentState = States.in_closet_0;
 		}
 	}
 
 	void stairs_1 () {
-		text.text = "You look up the stairwell. The guard is still there but now he's polishing is guns. Well, more like cannons. 50mm cannons. " +
+		text.text = "You look up the stairwell. The guard is still there but now he's polishing his guns. Well, more like cannons. 50mm cannons. " +
 					"You've come to the conclusion that the sign above the entrance to the stairwell is either a joke or placed over the wrong stairwell. " +
 					"Damn government workers...." +
 					"\n\n" +
@@ -268,32 +277,55 @@ public class TextController : MonoBehaviour {
 		}
 	}
 	
-	void in_closet_1 () {
+	void in_closet_0 () {
 		text.text = "With the door kicked in (damn faulty hairpin), you see several open boxes labelled \"Clothes To Boogie In\". " +
 					"Most of the clothes are polyester leisure suits and bellbottoms. Everything has sequines except for a skintight unitard with a tag " +
-					" that reads \"Invisibilty Unitard\". You strip naked in anticipation." +
+					"that reads \"Invisibilty Unitard\". You strip naked in anticipation." +
 					"\n\n" +
-					"Press [U] to put on the stealthy unitard and step out into the corridor, " +
+					"Press [U] to put on the stealth unitard and step out into the corridor, " +
 					"[R] to put your regular clothes on (boring) and return to the corridor";
 		if (Input.GetKeyDown (KeyCode.U)) {
-			currentState = States.corridor_2;
+			currentState = States.corridor_3;
 		}		
 		if (Input.GetKeyDown (KeyCode.R)) {
-			currentState = States.corridor_1;
+			currentState = States.corridor_2;
 		}
 	}
 	
-	void in_closet_2 () {
-		text.text = "You return to closet with all the open boxes filled with smelly boogie clothes. Now that you've put on the \"Invisiblity Unitard\", " +
-					"you can't think of any reason to take it off. EVER. Taken it to yo' grave, brother!" +
+	void in_closet_1 () {
+		text.text = "You return to closet with all the open boxes filled with smelly boogie clothes. You strip naked so it's easier to think. " +
+					"There are two options: become the embodiment of pure sexy by putting on the stealth unitard OR put your street clothes on and " +
+					"go out into the corridor as boring you." +
 					"\n\n" +
-					"Press [S] to remain stealthy, nay sexy and step out into the corridor, " +
-					"[R] to put the unitard back, put on your regular duds and return to the corridor";
+					"Press [S] to put on the sexy stealth unitard and step out into the corridor, " +
+					"[R] to put on your regular duds, return to the corridor, and impress noone";
 		if (Input.GetKeyDown (KeyCode.S)) {
-			currentState = States.corridor_2;
+			currentState = States.corridor_3;
 		}		
 		if (Input.GetKeyDown (KeyCode.R)) {
-			currentState = States.corridor_1;
+			currentState = States.corridor_2;
+		}
+	}
+	
+	void corridor_2 () {
+		text.text = "The corridor boogie-ified light show dances across your skin and clothes. Your enlightenment meter continues to tick upward. " +
+					"You can attempt your escape again up the stairs or you can return to the Chamber of Light (aka the closet)." +
+					"\n\n" +
+					"Press [S] to attempt escaping up the stairs, [C] to return to the Chamber of Light (aka the closet)";
+		if (Input.GetKeyDown (KeyCode.S)) {
+			currentState = States.stairs_2;
+		} else if (Input.GetKeyDown (KeyCode.C)) {
+			currentState = States.in_closet_1;
+		}
+	}
+	
+	void stairs_2 () {
+		text.text = "You look up the stairwell again. The guard now appears to be playing a game of 3 vs 3 basketball using, you assume, a fellow prisoner's " +
+					"head. The guard and all the other players are also holding knives. It still doesn't look like an escape would go all that well right now." +
+					"\n\n" +
+					"Press [R] to return to the corridor";
+		if (Input.GetKeyDown (KeyCode.R)) {
+			currentState = States.corridor_2;
 		}
 	}
 	
@@ -311,9 +343,25 @@ public class TextController : MonoBehaviour {
 					"\n\n" +
 					"Press [S] to ascend, [C] to chicken out and return to the closet";
 		if (Input.GetKeyDown (KeyCode.S)) {
-			currentState = States.stairs_2;
+			currentState = States.freedom;
 		} else if (Input.GetKeyDown (KeyCode.C)) {
-			currentState = States.in_closet_2;
+			currentState = States.in_closet_1;
+		}
+	}
+	
+	void freedom () {
+		text.text = "You look up the stairs to find the guard playing Pokemon Go on his smartphone. Now's your chance! You sprint up the stairs at your top " +
+					"speed of 3 km/h. You whiz by the guard, your non-invisible head bobbing up and down in front of him. You continue to run towards the " +
+					"front gate. Using your l33t parkour skills, you climb the walls and gate like Spider-Man and jump over the gate. " +
+					"You run and run and run!" + 
+					"\n\n" +
+					"YOU ARE FREE!!!!!" +
+					"\n\n" +
+					"Press [P] to imprison yourself and play again, [Esc] to quit";
+		if (Input.GetKeyDown (KeyCode.P)) {
+			currentState = States.cell;
+		} else if (Input.GetKeyDown (KeyCode.Escape)) {
+			Application.Quit ();
 		}
 	}
 	
